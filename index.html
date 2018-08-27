@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> Koinex</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="./styles.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body onload="showDetailsFirst()">
+	<div class="container-fluid">
+		<nav class='navbar'>
+			<a href="#" class="nav-header"><b>LOOP</b></a>
+			<ul class="nav-list">
+				<li >KOINEX</li>
+				<li><button class="btn btn-default btn-nav">REGISTER</button></li>
+				<li><button class="btn btn-primary btn-nav">SIGN IN</button></li>
+			</ul>
+		</nav>
+		<div class="container-fluid middle">
+			<nav class="choices">
+				<li> I want to </li>
+				<span class="choice1">
+					<input onclick="showDetails()" type="radio" name="button1" checked> Buy
+					<input onclick="showDetails()" type="radio" name="button1" > Sell
+				</span>
+				<span class="choice2">
+					<input onclick="showDetails()" type="radio" name="button2" > Bitcoin
+					<input onclick="showDetails()" type="radio" name="button2" checked> Ether
+					<input onclick="showDetails()" type="radio" name="button2" > Ripple	
+				</span>
+			</nav>
+			<div id="listing-filters">
+				<span class="glyphicon glyphicon-search"></span>
+			</div>
+			<div class="filters">
+				<div class="btn-group" class="dropdown">
+				    <button class="btn dropdown-toggle" type="button" data-toggle="dropdown">Price
+				    <span class="caret"></span></button>
+				    <ul class="dropdown-menu">
+					    <table>
+					    	<tbody>
+					    		<tr>
+					    			<td>Min.</td>
+					    			<td></td>
+					    			<td>Max.</td>
+					    		</tr>
+					    		<tr>
+					    			<td><input id="priceNumberMin" type="number"></td>
+					    			<td>-</td>
+					    			<td><input id="priceNumberMax" type="number"></td>
+					    		</tr>
+					    		<tr>
+					    			<td><button onclick="clearPrice()" class= "btn btn-default">CLEAR</button></td>
+					    			<td></td>
+					    			<td><button onclick="applyPrice()" class= "btn btn-primary">APPLY</button></td>
+					    		</tr>
+					    	</tbody>
+					    </table>
+					</ul>
+				  	</div>
+				  	<div class="dropdown">
+					    <button class="btn dropdown-toggle" type="button" data-toggle="dropdown">Quantity
+					    <span class="caret"></span></button>
+					    <ul class="dropdown-menu">
+						    <table>
+						    	<tbody>
+						    		<tr>
+						    			<td>Min.</td>
+						    			<td></td>
+						    			<td>Max.</td>
+						    		</tr>
+						    		<tr>
+						    			<td><input id="quantityNumberMin" type="number"></td>
+						    			<td>-</td>
+						    			<td><input id="quantityNumberMax" type="number"></td>
+						    		</tr>
+						    		<tr>
+						    			<td><button onclick="clearQuantity()" class= "btn btn-default">CLEAR</button></td>
+						    			<td></td>
+						    			<td><button onclick="applyQuantity()" class= "btn btn-primary">APPLY</button></td>
+						    		</tr>
+						    	</tbody>
+						    </table>
+						</ul>
+				  	</div>
+				  	<span class="startDate">
+				  		Start Date <input onchange="startDate()" id="startDate" type="date" name="start date"></input>
+				  	</span>
+				  	<span class="endDate">
+				  		End Date <input onchange="endDate()" id="endDate" type="date" name="end date"></input>
+				  	</span>
+					<span >
+				  		 <input onchange="hours()" id="hours" type="checkbox" name="Hours Limit">
+				  		 	24Hrs Limit
+				  		 </input>
+				  	</span>
+				  	<span >
+				  		 <input onchange="collateral()" id="collateral" type="checkbox" name="collateral">
+				  		 	Collateral
+				  		 </input>
+				  	</span>	
+			</div>
+			<div class="listing-button">
+				<button class="listing" data-toggle="modal" data-target="#myModal"> + CREATE LISTING</button>
+				<div class="modal fade" id="myModal" role="dialog">
+				    <div class="modal-dialog">
+				    
+				      <!-- Modal content-->
+				      <div class="modal-content">
+				        <div class="modal-header">
+				          <h2 class="nav-header"><b>LOOP</b></h2>
+				          <h5 class="loginTitles">Sign in with your Koinex account</h5>
+				        </div>
+				        <div class="modal-body">
+				          <form>
+				          	<div class="form-group">
+				          		<label for="user_name">Email/Mobile</label>
+				          		<input type="email" id="user_name" name="user_name">
+				          	</div>
+				          	<div class="form-group">
+				          		<label for="password">Email/Mobile</label>
+				          		<input type="password" id="password" name="password">
+				          	</div>
+				          	<div>
+				          		<p>FORGOT PASSWORD?</p>
+				          	</div>
+				          	<div>
+				          		<button class="modal-button">SIGN IN</button>
+				          	</div>
+				          </form>
+				        </div>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+			</div>
+			<div class="container-fluid bottom">
+				<div class="listing-header row">
+					<p class=col-md-3>USER</p>
+					<p class=col-md-3>PRICE</p>
+					<p class=col-md-3>MIN. QUANTITY</p>
+					<p class=col-md-3>ACTION</p>
+				</div>
+				<div id="details">
+
+				</div>
+			</div>
+			<div class="footers">
+				<div class="footer-header row">
+					<p class=col-md-1></p>
+					<p class=col-md-2>COMPANY</p>
+					<p class=col-md-2>INFORMATION</p>
+					<p class=col-md-2>RESOURCES</p>
+					<p class=col-md-2>LOOP</p>
+					<p class=col-md-2>FOLLOW US</p>
+					<p class=col-md-1></p>
+				</div>
+				<div class="footers-row row">
+					<div class="col-md-1">
+						<p class=row-md-6></p>
+						<p class=col-md-6></p>	
+					</div>
+					<div class="col-md-2">
+						<p class=row-md-2>About</p>
+						<p class=col-md-2>Careers</p>
+					</div>
+					<div class="col-md-2">
+						<p class=row-md-2>Acceptable Use Policy</p>
+						<p class=col-md-2>Fees</p>
+					</div>
+					<div class="col-md-2">
+						<p class=row-md-2>How it works</p>
+						<p class=col-md-2>FAQ</p>
+					</div>
+					<div class="col-md-2">
+						<p class=row-md-2>Buy Bitcoin</p>
+						<p class=col-md-2>Sell Bitcoin</p>
+					</div>
+					<div class="col-md-2">
+						<p class=row-md-2>Acceptable Use Policy</p>
+						<p class=col-md-2>Fees</p>
+					</div>
+					<div class="col-md-1">
+						<p class=row-md-2></p>
+						<p class=col-md-2></p>	
+					</div>
+				</div>
+			</div>	
+		</div>
+	</div>
+	<script src="index.js">
+	</script>
+</body>
+</html>
